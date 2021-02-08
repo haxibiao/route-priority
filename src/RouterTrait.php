@@ -15,7 +15,7 @@ trait RouterTrait
 			foreach ($this->middlewareGroups as $key => $middleware) {
 				$this->router->middlewareGroup($key, $middleware);
 			}
-		}		
+		}
 		
 		if(!empty($this->routeMiddleware)) {
 			foreach ($this->routeMiddleware as $key => $middleware) {

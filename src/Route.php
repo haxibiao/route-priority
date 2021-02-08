@@ -1,17 +1,17 @@
 <?php namespace Langaner\RoutePriority;
 
-use Illuminate\Routing\Route as IlluminateRoute;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ControllerDispatcher;
+use Illuminate\Routing\Route as IlluminateRoute;
 
 class Route extends IlluminateRoute
 {
-	/**
-	 * @var int
-	 */
-	protected $priority = Router::DEFAULT_PRIORITY;
+    /**
+     * @var int
+     */
+    protected $priority = Router::DEFAULT_PRIORITY;
 
-	/**
+    /**
      * Run the route action and return the response.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -19,28 +19,37 @@ class Route extends IlluminateRoute
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    protected function runController(Request $request)
+    protected function runController()
     {
-    	$this->router = app('router');
+        // Request $request
+        $this->router         = app('router');
         list($class, $method) = explode('@', $this->action['uses']);
-        
-        return (new ControllerDispatcher($this->router, $this->container))
-                    ->dispatch($this, $request, $class, $method);
-    }
-	
-	/**
-	 * @return int
-	 */
-	public function getPriority()
-	{
-		return $this->priority;
-	}
 
-	/**
-	 * @param int $priority
-	 */
-	public function setPriority($priority)
-	{
-		$this->priority = $priority;
-	}
+		dd($class);
+
+        return (new ControllerDispatcher(app()))
+            ->dispatch($this, $this->controller, $method);
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param int $priority
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
+
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
 }

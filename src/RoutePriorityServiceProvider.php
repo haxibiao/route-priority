@@ -1,6 +1,6 @@
 <?php namespace Langaner\RoutePriority;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RoutePriorityServiceProvider extends ServiceProvider
 {
@@ -18,10 +18,11 @@ class RoutePriorityServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['router'] = $this->app->share(function($app)
-        {
-            return new \Langaner\RoutePriority\Router($app['events'], $app);
+        $this->app->singleton('router', function ($app) {
+            $this->app['router'] = new \Langaner\RoutePriority\Router($app['events'], $app);
+            return $this->app['router'];
         });
+
     }
 
     /**
@@ -33,4 +34,5 @@ class RoutePriorityServiceProvider extends ServiceProvider
     {
         return ['router'];
     }
+
 }
