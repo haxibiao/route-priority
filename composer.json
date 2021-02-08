@@ -1,12 +1,12 @@
 {
-    "name": "langaner/route-priority",
+    "name": "haxibiao/route-priority",
     "description": "Package to add priority to Laravel 5 routes",
     "keywords": ["laravel", "route", "priority"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Langaner",
-            "email": "krashgt@gmail.com"
+            "name": "haxibiao-bin",
+            "email": "bin@haxibiao.com"
         }
     ],
     "require": {
